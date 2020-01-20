@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
-// import Swal from 'sweetalert2'
+import _ from 'lodash'
 
 class Grid extends Component {
     state = {
        userInput: 0,
-       newRow: []
-    }
-    
-
-    componentDidUpdate = async () => {
-        
+       newRow: [],
+       pixelColor: 'inherit'
     }
 
     handleChange = async ({ target: {value}}) => {
        this.setState({ userInput: value })
     }
 
+    handleClick = (col) => {
+        let arr = this.state.newRow
+        let indexId = _.findIndex(arr[col])
+        console.log(`INDEX: ${indexId}`)
+        let newId = `${indexId}-${col.id}`
+        console.log(newId)
+        let thisCol = this.state.newRow.id
+        console.log(col.id)
+        this.setState({ pixelColor: 'blue' })
+    }
+
     handleSubmit = async (e) => {
-        // let grid = this.state.grid
         e.preventDefault()
         let input = parseInt(this.state.userInput, 10)
         this.setState({
@@ -40,10 +46,10 @@ class Grid extends Component {
         let arr = this.state.newRow
         return arr.map((row, i) => {
             return (
-            <tr key={i}>
+            <tr key={i} className='bg-pixel'>
                {arr.map((col, j) =>{
                    return (
-                       <td key={j}></td>
+                       <td key={j}  style={{ backgroundColor: this.state.pixelColor }} onClick={()=>this.handleClick(col)}></td>
                    )
                })}
             </tr>
@@ -55,8 +61,9 @@ class Grid extends Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                Row <input onChange={this.handleChange} type='text' name='input' defaultValue='0' value={this.state.userInput}/> X
-                Col <input onChange={this.handleChange} type='text' name='input' defaultValue='0'  value={this.state.userInput} disabled/> <br/><br/><br/>
+                Table <br/>
+                      <input onChange={this.handleChange} type='text' name='input' value={this.state.userInput} maxLength='2'/> x
+                      <input onChange={this.handleChange} type='text' name='input' value={this.state.userInput} disabled/> <br/><br/><br/>
                 <div>
                     <button type='submit'>Submit</button>
                 </div>
