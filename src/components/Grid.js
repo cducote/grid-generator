@@ -24,12 +24,20 @@ class Grid extends Component {
         {
             id: 3,
         },
-       ]
+       ],
+       userInput: 10,
+       newRow: []
     }
+    
 
-    // componentDidMount = () => {
-    //  this.makeGrid()
-    // }
+    componentDidMount = () => {
+        const x = this.state.userInput
+        let objects = []
+        for (var i = 0; i < x; i++) {
+            objects[i] = {id: i}
+        } 
+        this.setState({ newRow: objects })
+    }
 
     handleChange = async (e) => {
         let editGrid = { ...this.state.editGrid }
@@ -52,7 +60,7 @@ class Grid extends Component {
     }
 
     makeGrid() {
-        let arr = this.state.arr
+        let arr = this.state.newRow
         return arr.map((row, i) => {
             return (
             <tr key={i}>
@@ -65,19 +73,6 @@ class Grid extends Component {
             )
         })
     }
-    // makeGrid() {
-    //     let arr = this.state.arr
-    //     for (var i=0; i < arr.length; i++) {
-            
-    //         console.log(arr.length)
-    //         return(
-    //         <tr>
-    //             <td>
-    //             </td>
-    //         </tr>
-    //         )
-    //     }
-    // }
 
     render() {
 
