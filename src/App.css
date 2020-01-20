@@ -18,3 +18,9 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+button {
+  margin: auto;
+  display: flex;
+  padding: 8px;
+}
