@@ -5,22 +5,17 @@ class Grid extends Component {
     state = {
        userInput: 0,
        newRow: [],
-       pixelColor: 'inherit'
+       pixelColor: 'blue',
+       cells: []
     }
 
     handleChange = async ({ target: {value}}) => {
        this.setState({ userInput: value })
     }
 
-    handleClick = (col) => {
-        let arr = this.state.newRow
-        let indexId = _.findIndex(arr[col])
-        console.log(`INDEX: ${indexId}`)
-        let newId = `${indexId}-${col.id}`
-        console.log(newId)
-        let thisCol = this.state.newRow.id
-        console.log(col.id)
-        this.setState({ pixelColor: 'blue' })
+    handleClick = (currentTarget) => {
+
+        console.log(currentTarget.data)
     }
 
     handleSubmit = async (e) => {
@@ -37,24 +32,43 @@ class Grid extends Component {
         const x = this.state.userInput
         let objects = []
         for (var i = 0; i < x; i++) {
-            objects[i] = {id: i}
+            objects[i] = { id: i }
         } 
         this.setState({ newRow: objects })
+    }
+    createObjectsAgain(){
+        let count = this.state.newRow.length
+        let x = count * count
+        let objects = []
+        for (var i = 0; i < x; i++) {
+            objects[i] = { id: i }
+        }
+        // this.setState({ cells: objects })
+        console.log(objects)
     }
 
     makeGrid() {
         let arr = this.state.newRow
+        let cells = []
         return arr.map((row, i) => {
             return (
-            <tr key={i} className='bg-pixel'>
+            <tr key={i} id={i++}>
                {arr.map((col, j) =>{
+                   cells[j] = { id: `${i}${j}` }
                    return (
-                       <td key={j}  style={{ backgroundColor: this.state.pixelColor }} onClick={()=>this.handleClick(col)}></td>
+                       <td 
+                            key={j}  
+                            // style={{ backgroundColor: this.state.pixelColor }} 
+                            onClick={currentTarget => this.handleClick(currentTarget)}
+                            id={`${i}-${j}`}
+                            >
+                        </td>
                    )
                })}
             </tr>
             )
         })
+       
     }
 
     render() {
@@ -75,6 +89,7 @@ class Grid extends Component {
                     {this.makeGrid()}
                   </tbody>
                 </table>
+                <button onClick={this.createObjectsAgain()}>SET CELLS</button>
             </div>
         );
     }

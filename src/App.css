@@ -24,3 +24,15 @@ button {
   display: flex;
   padding: 8px;
 }
+
+.red{
+  background: red;
+}
+
+.blue{
+  background:blue;
+}
+
+.green{
+  background: green;
+}
