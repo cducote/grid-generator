@@ -36,14 +36,14 @@ class Grid extends Component {
         } 
         this.setState({ newRow: objects })
     }
-    createObjectsAgain(){
+    createObjectsAgain = async () => {
         let count = this.state.newRow.length
         let x = count * count
         let objects = []
         for (var i = 0; i < x; i++) {
             objects[i] = { id: i }
         }
-        // this.setState({ cells: objects })
+        this.setState({ cells: objects })
         console.log(objects)
     }
 
@@ -89,7 +89,7 @@ class Grid extends Component {
                     {this.makeGrid()}
                   </tbody>
                 </table>
-                <button onClick={this.createObjectsAgain()}>SET CELLS</button>
+                <button onClick={this.createObjectsAgain}>SET CELLS</button>
             </div>
         );
     }
